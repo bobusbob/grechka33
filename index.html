@@ -1,2498 +1,339 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>G-Rechka — Клуб активного отдыха и сап-сплавов | г. Киржач</title>
-  <meta name="description" content="Клуб активного отдыха G-Rechka в Киржаче: SUP-сплавы, SUP-туры и прокат, индивидуальные занятия, а также туры на мотособаках, прогулки на мотобуксировщиках с санями и тюбингом." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ==========================================================================
-       1. ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ (Тёплая палитра природы и реки)
-       ========================================================================== */
-    :root {
-      --bg-warm: #faf6ee;          /* Тёплый льняной фон */
-      --bg-sand: #f1e9d8;          /* Тёплый песок и дерево */
-      --bg-card: #ffffff;
-      --forest-deep: #1b3d2f;      /* Глубокий сосновый лес */
-      --forest-mid: #2f624b;       /* Насыщенный луговой зелёный */
-      --forest-soft: #e3efe8;      /* Мягкий мятно-травяной */
-      --river-deep: #155d74;       /* Глубина речного русла */
-      --river-bright: #2a91ad;     /* Свежая голубая вода */
-      --river-mist: #dff1f6;       /* Утренняя дымка над водой */
-      --sun-amber: #d9822b;        /* Тёплое солнце и деревянный причал */
-      --sun-gold: #f0b354;         /* Золотой закат */
-      --text-main: #1d2c24;
-      --text-muted: #506359;
-      --border-warm: rgba(47, 98, 75, 0.14);
-
-      --shadow-sm: 0 6px 18px rgba(27, 61, 47, 0.06);
-      --shadow-md: 0 14px 34px rgba(21, 93, 116, 0.10);
-      --shadow-lg: 0 22px 48px rgba(27, 61, 47, 0.14);
-
-      --radius-sm: 12px;
-      --radius-md: 20px;
-      --radius-lg: 28px;
-      --nav-height: 76px;
-      --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
-      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background-color: var(--bg-warm);
-      color: var(--text-main);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.2;
-      color: var(--forest-deep);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    img, svg {
-      display: block;
-      max-width: 100%;
-    }
-
-    section {
-      scroll-margin-top: calc(var(--nav-height) + 16px);
-      position: relative;
-    }
-
-    .container {
-      width: min(1200px, 92%);
-      margin: 0 auto;
-    }
-
-    .section-pad {
-      padding: clamp(64px, 8vw, 108px) 0;
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 740px;
-      margin: 0 auto clamp(32px, 5vw, 48px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--forest-soft), var(--river-mist));
-      color: var(--river-deep);
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      border: 1px solid rgba(42, 145, 173, 0.2);
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.85rem, 3.6vw, 2.7rem);
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-      font-size: clamp(1rem, 1.4vw, 1.12rem);
-    }
-
-    /* Кнопки с современным hover-эффектом */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border: none;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
-    }
-
-    .btn::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
-      transform: translateX(-100%);
-      transition: transform 0.65s ease;
-    }
-
-    .btn:hover::after {
-      transform: translateX(100%);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--sun-amber), #e5963e);
-      color: #ffffff;
-      box-shadow: 0 10px 24px rgba(217, 130, 43, 0.34);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 32px rgba(217, 130, 43, 0.44);
-    }
-
-    .btn-outline-light {
-      background: rgba(255, 255, 255, 0.14);
-      color: #ffffff;
-      border: 1.5px solid rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-outline-light:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: translateY(-3px);
-    }
-
-    /* ==========================================================================
-       2. ЛИПКОЕ НАВИГАЦИОННОЕ МЕНЮ (Sticky Header)
-       ========================================================================== */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: var(--nav-height);
-      background: rgba(250, 246, 238, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-warm);
-      transition: box-shadow var(--transition), background var(--transition);
-    }
-
-    .navbar.scrolled {
-      background: rgba(250, 246, 238, 0.96);
-      box-shadow: 0 8px 26px rgba(27, 61, 47, 0.08);
-    }
-
-    .nav-inner {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.25rem;
-      color: var(--forest-deep);
-      white-space: nowrap;
-      transition: transform var(--transition);
-    }
-
-    .logo:hover {
-      transform: scale(1.03);
-    }
-
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: linear-gradient(145deg, var(--forest-mid), var(--river-bright));
-      display: grid;
-      place-items: center;
-      box-shadow: 0 6px 14px rgba(42, 145, 173, 0.28);
-      flex-shrink: 0;
-    }
-
-    .logo-sub {
-      display: block;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--river-deep);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .nav-links a {
-      font-weight: 700;
-      font-size: 0.96rem;
-      color: var(--forest-deep);
-      position: relative;
-      padding: 6px 0;
-      transition: color var(--transition);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2.5px;
-      border-radius: 99px;
-      background: linear-gradient(90deg, var(--forest-mid), var(--river-bright));
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform var(--transition);
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--river-deep);
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-phone {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--forest-mid), var(--river-deep));
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.88rem;
-      white-space: nowrap;
-      box-shadow: 0 6px 16px rgba(27, 61, 47, 0.2);
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-
-    .nav-phone:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(21, 93, 116, 0.3);
-    }
-
-    .burger {
-      display: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1.5px solid var(--border-warm);
-      background: var(--bg-card);
-      cursor: pointer;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: background var(--transition);
-    }
-
-    .burger span {
-      width: 22px;
-      height: 2.5px;
-      background: var(--forest-deep);
-      border-radius: 99px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    .burger.open span:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
-    .burger.open span:nth-child(2) {
-      opacity: 0;
-    }
-    .burger.open span:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
-
-    /* ==========================================================================
-       3. ГЛАВНЫЙ РАЗДЕЛ (Hero)
-       ========================================================================== */
-    .hero {
-      position: relative;
-      min-height: calc(100vh - var(--nav-height));
-      display: flex;
-      align-items: center;
-      padding: clamp(56px, 8vw, 96px) 0 110px;
-      background:
-        radial-gradient(circle at 82% 18%, rgba(240, 179, 84, 0.32) 0%, transparent 45%),
-        radial-gradient(circle at 12% 80%, rgba(42, 145, 173, 0.35) 0%, transparent 50%),
-        linear-gradient(135deg, #173b2d 0%, #1d5853 48%, #165e79 100%);
-      color: #ffffff;
-      overflow: hidden;
-    }
-
-    .hero-bg-art {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .hero-sun {
-      position: absolute;
-      top: 7%;
-      right: 10%;
-      width: clamp(180px, 24vw, 320px);
-      height: clamp(180px, 24vw, 320px);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(240, 179, 84, 0.48), rgba(217, 130, 43, 0.08) 65%, transparent 72%);
-      animation: pulseSun 7s ease-in-out infinite;
-    }
-
-    @keyframes pulseSun {
-      0%, 100% { transform: scale(1); opacity: 0.85; }
-      50% { transform: scale(1.08); opacity: 1; }
-    }
-
-    .hero-waves {
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: auto;
-      z-index: 2;
-    }
-
-    .hero-grid {
-      position: relative;
-      z-index: 3;
-      display: grid;
-      grid-template-columns: 1.22fr 0.78fr;
-      align-items: center;
-      gap: clamp(32px, 4.5vw, 56px);
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 22px;
-    }
-
-    .hero-badge-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--sun-gold);
-      box-shadow: 0 0 0 4px rgba(240, 179, 84, 0.25);
-    }
-
-    .hero h1 {
-      color: #ffffff;
-      font-size: clamp(1.85rem, 3.3vw, 2.85rem);
-      font-weight: 800;
-      line-height: 1.22;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-    }
-
-    .hero h1 .hero-accent {
-      color: var(--sun-gold);
-    }
-
-    .hero h1 .brand-nowrap {
-      white-space: nowrap;
-      display: inline-block;
-    }
-
-    .hero-lead {
-      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-      color: rgba(255, 255, 255, 0.88);
-      max-width: 600px;
-      margin-bottom: 32px;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-
-    .hero-highlights {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 600px;
-    }
-
-    .hero-stat {
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(8px);
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      transition: transform var(--transition), background var(--transition);
-    }
-
-    .hero-stat:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.17);
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.12rem;
-      color: var(--sun-gold);
-      margin-bottom: 2px;
-    }
-
-    .hero-stat span {
-      font-size: 0.84rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.3;
-      display: block;
-    }
-
-    /* Правая иллюстративная карточка в Hero */
-    .hero-card {
-      position: relative;
-      background: rgba(250, 246, 238, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      backdrop-filter: blur(14px);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: 0 28px 60px rgba(8, 25, 22, 0.35);
-      transition: transform var(--transition);
-    }
-
-    .hero-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .hero-illustration {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: linear-gradient(180deg, #b8e3ef 0%, #eef4e6 52%, #2f8ca6 52.5%, #165e79 100%);
-      aspect-ratio: 4 / 3;
-      position: relative;
-      margin-bottom: 20px;
-      box-shadow: inset 0 0 30px rgba(21, 93, 116, 0.15);
-    }
-
-    .hero-illustration svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .sup-float {
-      animation: supBob 4.5s ease-in-out infinite;
-      transform-origin: center;
-    }
-
-    @keyframes supBob {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(-1deg); }
-    }
-
-    .hero-card-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .hero-card-info h3 {
-      color: #ffffff;
-      font-size: 1.08rem;
-      margin-bottom: 4px;
-    }
-
-    .hero-card-info p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
-    }
-
-    .rating-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(240, 179, 84, 0.22);
-      border: 1px solid rgba(240, 179, 84, 0.45);
-      color: var(--sun-gold);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.92rem;
-      white-space: nowrap;
-    }
-
-    /* ==========================================================================
-       4. РАЗДЕЛ "О КОМПАНИИ" (Наша история)
-       ========================================================================== */
-    .about {
-      background: var(--bg-warm);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.05fr;
-      gap: clamp(32px, 5vw, 64px);
-      align-items: center;
-    }
-
-    .about-visual {
-      position: relative;
-      padding: 20px;
-    }
-
-    .about-frame {
-      position: relative;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(145deg, var(--forest-deep), var(--river-deep));
-      padding: 28px;
-      color: #ffffff;
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-    }
-
-    .about-frame::before {
-      content: '';
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(240, 179, 84, 0.25), transparent 70%);
-      top: -60px;
-      right: -60px;
-    }
-
-    .about-scene {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 22px;
-      background: #e9f4f1;
-    }
-
-    .about-quote {
-      font-size: 1.05rem;
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.92);
-      border-left: 3px solid var(--sun-gold);
-      padding-left: 16px;
-    }
-
-    .about-floating-tag {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      background: var(--bg-sand);
-      border: 2px solid #ffffff;
-      padding: 14px 20px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-md);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform var(--transition);
-    }
-
-    .about-visual:hover .about-floating-tag {
-      transform: translateY(-5px);
-    }
-
-    .about-floating-tag .tag-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--sun-amber), var(--sun-gold));
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      font-size: 1.3rem;
-    }
-
-    .about-floating-tag strong {
-      display: block;
-      font-size: 0.95rem;
-      color: var(--forest-deep);
-    }
-
-    .about-floating-tag span {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .about-content h2 {
-      font-size: clamp(1.8rem, 3.3vw, 2.5rem);
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .about-content p {
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      font-size: 1.03rem;
-    }
-
-    .about-pillars {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .pillar-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .pillar-item:hover {
-      transform: translateY(-4px);
-      border-color: var(--river-bright);
-      box-shadow: var(--shadow-md);
-    }
-
-    .pillar-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--forest-soft), var(--river-mist));
-      color: var(--river-deep);
-      display: grid;
-      place-items: center;
-      font-size: 1.15rem;
-      flex-shrink: 0;
-    }
-
-    .pillar-item h4 {
-      font-size: 0.95rem;
-      margin-bottom: 3px;
-    }
-
-    .pillar-item span {
-      font-size: 0.86rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      display: block;
-    }
-
-    /* ==========================================================================
-       5. РАЗДЕЛ УСЛУГ (По скриншотам VK с фото, описаниями и ценами)
-       ========================================================================== */
-    .services {
-      background: linear-gradient(180deg, var(--bg-sand) 0%, var(--bg-warm) 100%);
-      border-top: 1px solid var(--border-warm);
-      border-bottom: 1px solid var(--border-warm);
-    }
-
-    .services-filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .services-response-note {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--forest-mid);
-    }
-
-    .services-response-note span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: var(--forest-soft);
-      border: 1px solid rgba(47, 98, 75, 0.2);
-    }
-
-    .services-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 22px;
-    }
-
-    .service-card {
-      flex: 0 1 calc(25% - 17px);
-      min-width: 255px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-    }
-
-    .service-card.hidden {
-      display: none;
-    }
-
-    .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(42, 145, 173, 0.4);
-    }
-
-    /* Обложка карточки: реальное <img> поверх резервной SVG-сцены */
-    .service-cover {
-      position: relative;
-      height: 190px;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: 14px;
-      background: var(--forest-soft);
-    }
-
-    .service-cover svg.cover-art {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .service-cover img.service-photo {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .service-card:hover .service-cover svg.cover-art,
-    .service-card:hover .service-cover img.service-photo {
-      transform: scale(1.07);
-    }
-
-    .service-season-badge {
-      position: relative;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
-    }
-
-    .service-season-badge--water {
-      background: rgba(21, 93, 116, 0.88);
-      color: #ffffff;
-      border: 1px solid rgba(154, 215, 230, 0.45);
-    }
-
-    .service-season-badge--winter {
-      background: rgba(27, 61, 47, 0.88);
-      color: #fff6e5;
-      border: 1px solid rgba(240, 179, 84, 0.45);
-    }
-
-    .service-body {
-      padding: 20px 20px 22px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .service-price {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.28rem;
-      font-weight: 800;
-      color: var(--sun-amber);
-      margin-bottom: 6px;
-      letter-spacing: -0.01em;
-    }
-
-    .service-card h3 {
-      font-size: 1.06rem;
-      margin-bottom: 10px;
-      color: var(--forest-deep);
-    }
-
-    .service-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 16px;
-      flex-grow: 1;
-    }
-
-    .service-desc ul {
-      display: grid;
-      gap: 5px;
-      margin-top: 6px;
-    }
-
-    .service-desc li {
-      position: relative;
-      padding-left: 14px;
-    }
-
-    .service-desc li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--river-bright);
-      font-weight: 800;
-    }
-
-    .service-actions {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-    }
-
-    .service-btn {
-      padding: 11px 14px;
-      border-radius: 12px;
-      border: none;
-      background: linear-gradient(135deg, var(--forest-mid), var(--river-deep));
-      color: #ffffff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-    }
-
-    .service-btn:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, var(--river-deep), var(--river-bright));
-      box-shadow: 0 10px 20px rgba(21, 93, 116, 0.25);
-    }
-
-    .service-call-btn {
-      padding: 11px 13px;
-      border-radius: 12px;
-      background: var(--forest-soft);
-      color: var(--forest-deep);
-      border: 1px solid rgba(47, 98, 75, 0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform var(--transition), background var(--transition), color var(--transition);
-    }
-
-    .service-call-btn:hover {
-      transform: translateY(-2px);
-      background: var(--sun-amber);
-      color: #ffffff;
-      border-color: transparent;
-    }
-
-    /* Плашка "В каждый сплав включено" */
-    .included-banner {
-      margin-top: 42px;
-      background: linear-gradient(135deg, var(--forest-deep), var(--river-deep));
-      color: #ffffff;
-      border-radius: var(--radius-lg);
-      padding: clamp(24px, 4vw, 36px);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      box-shadow: var(--shadow-md);
-    }
-
-    .included-text h3 {
-      color: #ffffff;
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-    }
-
-    .included-text p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 0.98rem;
-    }
-
-    .included-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .included-chip {
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: background var(--transition), transform var(--transition);
-    }
-
-    .included-chip:hover {
-      background: rgba(255, 255, 255, 0.24);
-      transform: translateY(-2px);
-    }
-
-    /* ==========================================================================
-       6. РАЗДЕЛ "ПРОШЕДШИЕ МЕРОПРИЯТИЯ"
-       ========================================================================== */
-    .events {
-      background: var(--bg-warm);
-    }
-
-    .events-filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 34px;
-    }
-
-    .filter-btn {
-      padding: 9px 20px;
-      border-radius: 999px;
-      border: 1.5px solid var(--border-warm);
-      background: var(--bg-card);
-      color: var(--forest-deep);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.86rem;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: linear-gradient(135deg, var(--forest-mid), var(--river-deep));
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 8px 18px rgba(21, 93, 116, 0.22);
-      transform: translateY(-2px);
-    }
-
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 26px;
-    }
-
-    .event-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 185px 1fr;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-    }
-
-    .event-card.hidden {
-      display: none;
-    }
-
-    .event-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(42, 145, 173, 0.36);
-    }
-
-    .event-cover {
-      position: relative;
-      padding: 22px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: #ffffff;
-      overflow: hidden;
-    }
-
-    .event-cover--summer {
-      background: linear-gradient(155deg, #2b6f56 0%, #2a91ad 100%);
-    }
-
-    .event-cover--sunset {
-      background: linear-gradient(155deg, #1b3d2f 0%, #155d74 58%, #d9822b 100%);
-    }
-
-    .event-cover--river {
-      background: linear-gradient(155deg, #155d74 0%, #3b9bb3 100%);
-    }
-
-    .event-cover--live {
-      background: linear-gradient(155deg, #275844 0%, #4b8868 65%, #e19a47 100%);
-    }
-
-    .event-cover svg {
-      position: absolute;
-      bottom: -8px;
-      right: -8px;
-      width: 110px;
-      height: 110px;
-      opacity: 0.22;
-      transition: transform var(--transition);
-    }
-
-    .event-card:hover .event-cover svg {
-      transform: scale(1.15) rotate(6deg);
-    }
-
-    .event-date {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.84rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 6px 10px;
-      border-radius: 8px;
-      align-self: flex-start;
-    }
-
-    .event-location {
-      font-size: 0.84rem;
-      font-weight: 700;
-      opacity: 0.92;
-      position: relative;
-      z-index: 1;
-    }
-
-    .event-body {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .event-body h3 {
-      font-size: 1.15rem;
-      margin-bottom: 6px;
-    }
-
-    .event-body p {
-      font-size: 0.94rem;
-      color: var(--text-muted);
-    }
-
-    .event-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .event-pill {
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background: var(--forest-soft);
-      color: var(--forest-deep);
-    }
-
-    .event-pill--blue {
-      background: var(--river-mist);
-      color: var(--river-deep);
-    }
-
-    /* ==========================================================================
-       7. РАЗДЕЛ КОНТАКТОВ И ЗАПИСИ
-       ========================================================================== */
-    .contacts {
-      background: linear-gradient(180deg, var(--bg-sand) 0%, #e7dfd0 100%);
-      border-top: 1px solid var(--border-warm);
-    }
-
-    .contacts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(24px, 4vw, 44px);
-      align-items: stretch;
-    }
-
-    .contact-info-box {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: clamp(26px, 4vw, 40px);
-      border: 1px solid var(--border-warm);
-      box-shadow: var(--shadow-md);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 18px;
-    }
-
-    .contact-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px;
-      border-radius: var(--radius-sm);
-      background: var(--bg-warm);
-      border: 1px solid transparent;
-      transition: transform var(--transition), border-color var(--transition), background var(--transition);
-    }
-
-    .contact-row:hover {
-      transform: translateX(6px);
-      border-color: rgba(42, 145, 173, 0.3);
-      background: #ffffff;
-    }
-
-    .contact-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--forest-mid), var(--river-bright));
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-
-    .contact-row small {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .contact-row strong,
-    .contact-row a {
-      font-size: 1.03rem;
-      font-weight: 700;
-      color: var(--forest-deep);
-    }
-
-    .contact-row a:hover {
-      color: var(--river-deep);
-    }
-
-    .social-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding-top: 10px;
-    }
-
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.92rem;
-      background: var(--forest-soft);
-      color: var(--forest-deep);
-      border: 1px solid rgba(47, 98, 75, 0.16);
-      transition: transform var(--transition), background var(--transition), color var(--transition);
-    }
-
-    .social-btn:hover {
-      transform: translateY(-3px);
-      background: var(--river-deep);
-      color: #ffffff;
-    }
-
-    /* Форма быстрой заявки */
-    .booking-box {
-      background: linear-gradient(145deg, var(--forest-deep), #1c4c57);
-      color: #ffffff;
-      border-radius: var(--radius-lg);
-      padding: clamp(26px, 4vw, 40px);
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .booking-box h3 {
-      color: #ffffff;
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    .booking-box > p {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 0.96rem;
-      margin-bottom: 22px;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .form-row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.84rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(255, 255, 255, 0.22);
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      font-family: inherit;
-      font-size: 0.96rem;
-      outline: none;
-      transition: border-color var(--transition), background var(--transition);
-    }
-
-    .form-control option {
-      color: var(--forest-deep);
-      background: #ffffff;
-    }
-
-    .form-control::placeholder {
-      color: rgba(255, 255, 255, 0.58);
-    }
-
-    .form-control:focus {
-      border-color: var(--sun-gold);
-      background: rgba(255, 255, 255, 0.18);
-    }
-
-    .form-feedback {
-      margin-top: 12px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      background: rgba(240, 179, 84, 0.2);
-      border: 1px solid rgba(240, 179, 84, 0.5);
-      color: #fff7e6;
-      font-size: 0.92rem;
-      display: none;
-    }
-
-    .form-feedback.visible {
-      display: block;
-      animation: fadeUp 0.4s ease;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ==========================================================================
-       8. ФУТЕР И КНОПКА НАВЕРХ
-       ========================================================================== */
-    .footer {
-      background: var(--forest-deep);
-      color: rgba(255, 255, 255, 0.82);
-      padding: 40px 0 28px;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .footer-brand strong {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.15rem;
-      color: #ffffff;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .footer-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .footer-nav a:hover {
-      color: var(--sun-gold);
-    }
-
-    .footer-bottom {
-      padding-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.62);
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--forest-mid), var(--river-bright));
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      box-shadow: var(--shadow-md);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(12px);
-      transition: all var(--transition);
-      z-index: 900;
-    }
-
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .back-to-top:hover {
-      transform: translateY(-4px);
-    }
-
-    /* ==========================================================================
-       9. АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И МОБИЛЬНЫХ УСТРОЙСТВ
-       ========================================================================== */
-    @media (max-width: 1120px) {
-      .service-card {
-        flex: 0 1 calc(50% - 12px);
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .hero-grid,
-      .about-grid,
-      .contacts-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .events-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        position: fixed;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
-        background: rgba(250, 246, 238, 0.98);
-        backdrop-filter: blur(16px);
-        flex-direction: column;
-        align-items: center;
-        padding: 24px 20px 30px;
-        gap: 18px;
-        border-bottom: 1px solid var(--border-warm);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-120%);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 0.35s ease, opacity 0.35s ease;
-      }
-
-      .nav-links.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .nav-phone-text {
-        display: none;
-      }
-
-      .nav-phone {
-        padding: 10px 12px;
-      }
-
-      .burger {
-        display: flex;
-      }
-
-      .hero {
-        padding-top: 38px;
-        padding-bottom: 84px;
-      }
-
-      .hero-highlights {
-        grid-template-columns: 1fr;
-      }
-
-      .service-card {
-        flex: 0 1 100%;
-      }
-
-      .about-pillars {
-        grid-template-columns: 1fr;
-      }
-
-      .event-card {
-        grid-template-columns: 1fr;
-      }
-
-      .event-cover {
-        min-height: 130px;
-      }
-
-      .form-row-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>G-Rechka — Клуб активного отдыха и сап-сплавов | г. Киржач</title>
+<meta name="description" content="Клуб активного отдыха G-Rechka в Киржаче: SUP-сплавы, SUP-туры и прокат, индивидуальные занятия, а также туры на мотособаках, прогулки на мотобуксировщиках с санями и тюбингом." />
+<meta name="theme-color" content="#1b3d2f" />
+<link rel="canonical" href="https://bobusbob.github.io/grechka33/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232f624b'/%3E%3Cpath d='M16 62c10-8 18-8 28 0s18 8 28 0 10-6 14-4' stroke='%23fff' stroke-width='9' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='62' cy='30' r='11' fill='%23f0b354'/%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:title" content="G-Rechka — SUP-сплавы, туры и прокат в Киржаче" />
+<meta property="og:description" content="SUP летом, мотособаки, мотобуксировщики и тюбинг зимой. Инструктаж, снаряжение и фото." />
+<meta property="og:url" content="https://bobusbob.github.io/grechka33/" />
+<meta property="og:image" content="https://bobusbob.github.io/grechka33/images/hero.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"G-Rechka — клуб активного отдыха","url":"https://bobusbob.github.io/grechka33/","image":"https://bobusbob.github.io/grechka33/images/hero.jpg","telephone":"+79961910150","address":{"@type":"PostalAddress","addressLocality":"Киржач","addressRegion":"Владимирская область","addressCountry":"RU"},"openingHours":"Mo-Su 08:00-22:00","sameAs":["https://vk.ru/grechka33"]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#faf6ee;--sand:#f1e9d8;--fd:#1b3d2f;--fm:#2f624b;--fs:#e3efe8;--rd:#155d74;--rb:#2a91ad;--rm:#dff1f6;--am:#d9822b;--gold:#f0b354;--tx:#1d2c24;--mu:#506359;--bd:rgba(47,98,75,.14);--sh:0 6px 18px rgba(27,61,47,.06);--shl:0 22px 48px rgba(27,61,47,.14);--r1:12px;--r2:20px;--r3:28px;--nav:76px;--t:.35s cubic-bezier(.22,1,.36,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;color:var(--fd)}
+a{color:inherit;text-decoration:none}ul{list-style:none}img,svg{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.ico{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+section{scroll-margin-top:calc(var(--nav) + 16px);position:relative}
+.container{width:min(1200px,92%);margin:0 auto}
+.pad{padding:clamp(64px,8vw,108px) 0}
+.sh{text-align:center;max-width:740px;margin:0 auto clamp(32px,5vw,48px)}
+.sh h2{font-size:clamp(1.85rem,3.6vw,2.7rem);font-weight:800;margin-bottom:14px}
+.sh p{color:var(--mu);font-size:1.08rem}
+.eyebrow{display:inline-flex;gap:8px;padding:6px 16px;border-radius:999px;background:linear-gradient(135deg,var(--fs),var(--rm));color:var(--rd);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;border:1px solid rgba(42,145,173,.2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 28px;border-radius:999px;font:700 .95rem 'Montserrat',sans-serif;cursor:pointer;border:none;transition:transform var(--t),box-shadow var(--t),background var(--t)}
+.btn-p{background:linear-gradient(135deg,var(--am),#e5963e);color:#fff;box-shadow:0 10px 24px rgba(217,130,43,.34)}
+.btn-p:hover{transform:translateY(-3px)}
+.btn-o{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.btn-o:hover{background:rgba(255,255,255,.25);transform:translateY(-3px)}
+.photo{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--fm),var(--rb))}
+.photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+/* nav */
+.navbar{position:sticky;top:0;z-index:1000;height:var(--nav);background:rgba(250,246,238,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);transition:box-shadow var(--t)}
+.navbar.scrolled{box-shadow:0 8px 26px rgba(27,61,47,.08)}
+.nav-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:inline-flex;align-items:center;gap:12px;font:800 1.25rem 'Montserrat',sans-serif;color:var(--fd);white-space:nowrap}
+.logo-m{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,var(--fm),var(--rb));display:grid;place-items:center;color:#fff}
+.logo-s{display:block;font:700 .72rem 'Nunito',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--rd)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-weight:700;padding:6px 0;border-bottom:2.5px solid transparent;transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--rd);border-color:var(--rb)}
+.nav-act{display:flex;align-items:center;gap:12px}
+.nav-ph{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:linear-gradient(135deg,var(--fm),var(--rd));color:#fff;font-weight:700;font-size:.88rem;white-space:nowrap}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1.5px solid var(--bd);background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{width:22px;height:2.5px;background:var(--fd);border-radius:99px;transition:.3s}
+.burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+/* hero */
+.hero{min-height:calc(100vh - var(--nav));display:flex;align-items:center;padding:clamp(56px,8vw,96px) 0 110px;background:radial-gradient(circle at 82% 18%,rgba(240,179,84,.32),transparent 45%),radial-gradient(circle at 12% 80%,rgba(42,145,173,.35),transparent 50%),linear-gradient(135deg,#173b2d,#1d5853 48%,#165e79);color:#fff;overflow:hidden;position:relative}
+.waves{position:absolute;bottom:-2px;left:0;width:100%;height:auto;z-index:2}
+.hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.22fr .78fr;align-items:center;gap:clamp(32px,4.5vw,56px)}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-size:.9rem;font-weight:600;margin-bottom:22px}
+.badge i{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(240,179,84,.25)}
+.hero h1{color:#fff;font-size:clamp(1.85rem,3.3vw,2.85rem);font-weight:800;line-height:1.22;margin-bottom:20px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.lead{font-size:1.15rem;color:rgba(255,255,255,.9);max-width:600px;margin-bottom:32px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:600px}
+.stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:14px 16px;border-radius:var(--r1)}
+.stat strong{display:block;font:700 1.1rem 'Montserrat',sans-serif;color:var(--gold)}
+.stat span{font-size:.84rem;line-height:1.3;display:block}
+.hcard{background:rgba(250,246,238,.1);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(14px);border-radius:var(--r3);padding:24px;box-shadow:0 28px 60px rgba(8,25,22,.35)}
+.hcard .photo{border-radius:var(--r2);aspect-ratio:4/3;margin-bottom:20px}
+.hinfo{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hinfo h3{color:#fff;font-size:1.08rem;margin-bottom:4px}
+.hinfo p{color:rgba(255,255,255,.85);font-size:.9rem}
+.rate{background:rgba(240,179,84,.22);border:1px solid rgba(240,179,84,.45);color:var(--gold);padding:8px 14px;border-radius:999px;font-weight:800;white-space:nowrap}
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,5vw,64px);align-items:center}
+.aframe{background:linear-gradient(145deg,var(--fd),var(--rd));padding:28px;border-radius:var(--r3);color:#fff;box-shadow:var(--shl);position:relative}
+.aframe .photo{border-radius:var(--r2);aspect-ratio:4/3;margin-bottom:22px}
+.aframe blockquote{font-style:italic;border-left:3px solid var(--gold);padding-left:16px}
+.atag{position:absolute;bottom:-18px;right:-8px;background:var(--sand);border:2px solid #fff;padding:12px 18px;border-radius:var(--r2);box-shadow:var(--sh);display:flex;align-items:center;gap:12px}
+.atag .ib{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--am),var(--gold));color:#fff;display:grid;place-items:center}
+.atag strong{display:block;font-size:.95rem;color:var(--fd)}.atag span{font-size:.82rem;color:var(--mu)}
+.about-c h2{font-size:clamp(1.8rem,3.3vw,2.5rem);font-weight:800;margin-bottom:18px}
+.about-c p{color:var(--mu);margin-bottom:16px}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.pillar{background:#fff;border:1px solid var(--bd);border-radius:var(--r1);padding:16px;display:flex;gap:12px;box-shadow:var(--sh);transition:transform var(--t)}
+.pillar:hover{transform:translateY(-4px)}
+.pillar .ib{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--fs),var(--rm));color:var(--rd);display:grid;place-items:center;flex-shrink:0}
+.pillar h4{font-size:.95rem;margin-bottom:3px}.pillar span{font-size:.86rem;color:var(--mu);line-height:1.4;display:block}
+/* services */
+.services{background:linear-gradient(180deg,var(--sand),var(--bg));border-block:1px solid var(--bd)}
+.filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.fbtn{padding:9px 20px;border-radius:999px;border:1.5px solid var(--bd);background:#fff;color:var(--fd);font:700 .86rem 'Montserrat',sans-serif;cursor:pointer;transition:.3s}
+.fbtn:hover,.fbtn.active{background:linear-gradient(135deg,var(--fm),var(--rd));color:#fff;border-color:transparent}
+.note{text-align:center;margin-bottom:30px;font-size:.92rem;font-weight:700;color:var(--fm)}
+.note span{padding:6px 14px;border-radius:999px;background:var(--fs);border:1px solid rgba(47,98,75,.2)}
+.sgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
+.scard{flex:0 1 calc(25% - 17px);min-width:255px;background:#fff;border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh);transition:transform var(--t),box-shadow var(--t)}
+.scard.hidden{display:none}
+.scard:hover{transform:translateY(-8px);box-shadow:var(--shl)}
+.scard:hover img{transform:scale(1.07)}
+.scover{height:200px;display:flex;align-items:flex-end;padding:14px;border-radius:0}
+.stag{position:relative;z-index:2;padding:5px 12px;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;backdrop-filter:blur(8px);color:#fff;background:rgba(21,93,116,.9)}
+.stag.winter{background:rgba(27,61,47,.9);color:#fff6e5}
+.sbody{padding:20px;display:flex;flex-direction:column;flex-grow:1}
+.price{font:800 1.28rem 'Montserrat',sans-serif;color:var(--am);margin-bottom:6px}
+.scard h3{font-size:1.06rem;margin-bottom:10px}
+.sdesc{color:var(--mu);font-size:.9rem;line-height:1.5;margin-bottom:16px;flex-grow:1}
+.sdesc li{position:relative;padding-left:14px;margin-top:5px}
+.sdesc li::before{content:'•';position:absolute;left:0;color:var(--rb);font-weight:800}
+.sact{display:grid;grid-template-columns:1fr auto;gap:8px}
+.sbtn{padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,var(--fm),var(--rd));color:#fff;font:700 .88rem 'Montserrat',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.3s}
+.sbtn:hover{transform:translateY(-2px)}
+.scall{padding:11px 13px;border-radius:12px;background:var(--fs);color:var(--fd);border:1px solid rgba(47,98,75,.18);display:inline-flex;align-items:center;transition:.3s}
+.scall:hover{background:var(--am);color:#fff}
+.included{margin-top:42px;background:linear-gradient(135deg,var(--fd),var(--rd));color:#fff;border-radius:var(--r3);padding:clamp(24px,4vw,36px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
+.included h3{color:#fff;font-size:1.3rem;margin-bottom:6px}.included p{color:rgba(255,255,255,.85)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);font-size:.88rem;font-weight:600}
+/* events */
+.egrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.ecard{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;display:grid;grid-template-columns:185px 1fr;box-shadow:var(--sh);transition:transform var(--t),box-shadow var(--t)}
+.ecard.hidden{display:none}
+.ecard:hover{transform:translateY(-6px);box-shadow:var(--shl)}
+.ecard:hover img{transform:scale(1.07)}
+.ecover{padding:18px 14px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;min-height:170px}
+.ecover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 50%,rgba(0,0,0,.45));z-index:1}
+.ecover>span{position:relative;z-index:2}
+.edate{font:800 .8rem 'Montserrat',sans-serif;text-transform:uppercase;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);padding:6px 10px;border-radius:8px;align-self:flex-start}
+.eloc{font-size:.84rem;font-weight:700}
+.ebody{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.ebody h3{font-size:1.15rem;margin-bottom:6px}.ebody p{font-size:.94rem;color:var(--mu)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:.78rem;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--fs);color:var(--fd)}
+.pill.b{background:var(--rm);color:var(--rd)}
+/* contacts */
+.contacts{background:linear-gradient(180deg,var(--sand),#e7dfd0);border-top:1px solid var(--bd)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,44px)}
+.cbox{background:#fff;border-radius:var(--r3);padding:clamp(26px,4vw,40px);border:1px solid var(--bd);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.crow{display:flex;gap:16px;padding:14px;border-radius:var(--r1);background:var(--bg);margin-bottom:14px}
+.crow .ib{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--fm),var(--rb));color:#fff;display:grid;place-items:center;flex-shrink:0}
+.crow small{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mu)}
+.crow strong,.crow a{font-weight:700;color:var(--fd)}
+.crow div div{font-size:.88rem;color:var(--mu)}
+.social{display:flex;flex-wrap:wrap;gap:12px}
+.social a{padding:11px 18px;border-radius:12px;font-weight:700;font-size:.92rem;background:var(--fs);color:var(--fd);border:1px solid rgba(47,98,75,.16);transition:.3s}
+.social a:hover{background:var(--rd);color:#fff}
+.bbox{background:linear-gradient(145deg,var(--fd),#1c4c57);color:#fff;border-radius:var(--r3);padding:clamp(26px,4vw,40px);box-shadow:var(--shl)}
+.bbox h3{color:#fff;font-size:1.5rem;margin-bottom:8px}
+.bbox>p{color:rgba(255,255,255,.85);margin-bottom:22px}
+.fgrid{display:grid;gap:14px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg label{display:block;font-size:.84rem;font-weight:700;margin-bottom:6px}
+.fc{width:100%;padding:12px 15px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font:inherit;outline:none}
+.fc option{color:var(--fd);background:#fff}.fc::placeholder{color:rgba(255,255,255,.6)}
+.fc:focus{border-color:var(--gold)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:rgba(255,255,255,.85)}
+.consent input{margin-top:4px;accent-color:var(--am)}
+.fb{display:none;padding:12px 16px;border-radius:12px;background:rgba(240,179,84,.2);border:1px solid rgba(240,179,84,.5);font-size:.92rem}
+.fb.on{display:block}.fb a{text-decoration:underline;font-weight:700;margin-right:12px;display:inline-block;margin-top:6px}
+/* footer */
+.footer{background:var(--fd);color:rgba(255,255,255,.82);padding:40px 0 28px}
+.fin{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.12)}
+.fin strong{font:700 1.15rem 'Montserrat',sans-serif;color:#fff;display:block}
+.fnav{display:flex;flex-wrap:wrap;gap:20px;font-weight:600}.fnav a:hover{color:var(--gold)}
+.fbot{padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.85rem;color:rgba(255,255,255,.65)}
+.totop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--fm),var(--rb));color:#fff;display:grid;place-items:center;opacity:0;visibility:hidden;transition:.3s;z-index:900}
+.totop.show{opacity:1;visibility:visible}
+.mcta{display:none}
+@media(max-width:1120px){.scard{flex:0 1 calc(50% - 12px)}}
+@media(max-width:1024px){.hero-grid,.about-grid,.cgrid,.egrid{grid-template-columns:1fr}}
+@media(max-width:768px){
+.nav-links{position:fixed;top:var(--nav);left:0;right:0;background:rgba(250,246,238,.98);flex-direction:column;align-items:center;padding:24px 20px 30px;gap:18px;border-bottom:1px solid var(--bd);transform:translateY(-120%);opacity:0;pointer-events:none;transition:.35s}
+.nav-links.open{transform:none;opacity:1;pointer-events:auto}
+.nav-ph span{display:none}.burger{display:flex}
+.hero{padding:38px 0 84px}.stats,.pillars,.row2{grid-template-columns:1fr}
+.scard{flex:0 1 100%}.ecard{grid-template-columns:1fr}
+body{padding-bottom:68px}.totop{bottom:82px}
+.mcta{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:950;padding:10px 4%;background:rgba(250,246,238,.96);border-top:1px solid var(--bd);backdrop-filter:blur(12px)}
+.mcta a{padding:12px;border-radius:12px;text-align:center;font:700 .9rem 'Montserrat',sans-serif;color:#fff;background:linear-gradient(135deg,var(--fm),var(--rd))}
+.mcta a+a{background:linear-gradient(135deg,var(--am),#e5963e)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-
-  <!-- ======================================================================
-       НАВИГАЦИОННОЕ МЕНЮ (остаётся вверху при прокрутке)
-       ====================================================================== -->
-  <header class="navbar" id="navbar">
-    <div class="container nav-inner">
-      <a href="#hero" class="logo" aria-label="G-Rechka на главную">
-        <span class="logo-mark">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M3 16c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1.5 4-1" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M3 20c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1.5 4-1" stroke="#f0b354" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M14.5 3.5L9.5 13.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
-            <ellipse cx="15.5" cy="4.2" rx="2.3" ry="3.4" transform="rotate(26 15.5 4.2)" fill="#f0b354"/>
-          </svg>
-        </span>
-        <span>
-          G-Rechka
-          <span class="logo-sub">активный отдых • г. Киржач</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
-        <a href="#about">О клубе</a>
-        <a href="#services">Услуги</a>
-        <a href="#events">Мероприятия</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="tel:+79961910150" class="nav-phone" aria-label="Позвонить в клуб G-Rechka">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          <span class="nav-phone-text">+7 (996) 191-01-50</span>
-        </a>
-        <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- ====================================================================
-         ГЛАВНЫЙ РАЗДЕЛ (Hero)
-         ==================================================================== -->
-    <section class="hero" id="hero">
-      <div class="hero-bg-art" aria-hidden="true">
-        <div class="hero-sun"></div>
-        <svg class="hero-waves" viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path fill="rgba(250, 246, 238, 0.16)" d="M0,48 C240,108 480,0 720,52 C960,104 1200,16 1440,64 L1440,120 L0,120 Z"></path>
-          <path fill="#faf6ee" d="M0,74 C320,18 640,115 960,64 C1180,30 1330,68 1440,84 L1440,120 L0,120 Z"></path>
-        </svg>
-      </div>
-
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <div class="hero-badge">
-            <span class="hero-badge-dot"></span>
-            Владимирская область • Реки Киржач и Шерна
-          </div>
-
-          <h1>
-            Лови течение лета&nbsp;—<br />
-            <span class="hero-accent">отдыхай на воде с&nbsp;<span class="brand-nowrap">G-Rechka!</span></span>
-          </h1>
-
-          <p class="hero-lead">
-            SUP-прогулки, сплавы, туры и прокат в городе Киржач, а зимой — выезды на мотособаках,
-            мотобуксировщиках и тюбингах. Живописные маршруты, полный комплект снаряжения и поддержка инструкторов.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="#services" class="btn btn-primary">
-              Смотреть услуги и цены
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-            <a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">
-              Сообщество ВКонтакте
-            </a>
-          </div>
-
-          <div class="hero-highlights">
-            <div class="hero-stat">
-              <strong>08:00 – 22:00</strong>
-              <span>Работаем ежедневно по записи</span>
-            </div>
-            <div class="hero-stat">
-              <strong>Круглый год</strong>
-              <span>SUP летом и мотособаки зимой</span>
-            </div>
-            <div class="hero-stat">
-              <strong>Dog-friendly</strong>
-              <span>Можно взять с собой собаку</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="hero-illustration" aria-hidden="true">
-            <svg viewBox="0 0 480 360" fill="none">
-              <circle cx="375" cy="78" r="38" fill="#f0b354" opacity="0.88"/>
-              <circle cx="375" cy="78" r="56" fill="#f0b354" opacity="0.22"/>
-              <path d="M0 190 Q90 155 180 182 T370 175 T480 188 L480 195 L0 195 Z" fill="#356850" opacity="0.55"/>
-              <path d="M0 192 L22 148 L44 192 L66 142 L90 192 L112 156 L132 192 L160 150 L185 192 L480 192 Z" fill="#244e3c"/>
-              <path d="M295 192 L322 146 L348 192 L374 152 L398 192 L426 140 L456 192 L480 192 Z" fill="#1b3d2f"/>
-              <rect x="0" y="190" width="480" height="170" fill="url(#waterGrad)"/>
-              <path d="M24 238 Q90 228 156 238 T288 238 T456 238" stroke="#9ad7e6" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
-              <path d="M52 292 Q130 282 210 292 T380 292" stroke="#9ad7e6" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
-              <g class="sup-float">
-                <ellipse cx="235" cy="256" rx="108" ry="13" fill="#0f4152" opacity="0.35"/>
-                <path d="M128 248 C156 238 308 238 342 247 C324 256 156 258 128 248 Z" fill="#d9822b" stroke="#fff3de" stroke-width="2"/>
-                <rect x="216" y="182" width="16" height="38" rx="8" fill="#1b3d2f"/>
-                <circle cx="224" cy="170" r="10" fill="#f6c79c"/>
-                <path d="M218 218 L213 246 M228 218 L234 246" stroke="#1b3d2f" stroke-width="6" stroke-linecap="round"/>
-                <path d="M214 190 L248 202" stroke="#f6c79c" stroke-width="5" stroke-linecap="round"/>
-                <path d="M250 170 L236 270" stroke="#fff3de" stroke-width="3.2" stroke-linecap="round"/>
-                <ellipse cx="235" cy="272" rx="4.5" ry="9" transform="rotate(8 235 272)" fill="#f0b354"/>
-              </g>
-              <defs>
-                <linearGradient id="waterGrad" x1="240" y1="190" x2="240" y2="360" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#2a91ad"/>
-                  <stop offset="1" stop-color="#144d61"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          <div class="hero-card-info">
-            <div>
-              <h3>Живописные маршруты лета</h3>
-              <p>Городские сплавы ежедневно и выезды выходного дня</p>
-            </div>
-            <div class="rating-pill" title="Оценка гостей на Яндекс Картах">
-              ★ 4.7
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         РАЗДЕЛ "О КОМПАНИИ" (Наша история)
-         ==================================================================== -->
-    <section class="about section-pad" id="about">
-      <div class="container about-grid">
-        <div class="about-visual">
-          <div class="about-frame">
-            <div class="about-scene" aria-hidden="true">
-              <svg viewBox="0 0 500 300" fill="none">
-                <rect width="500" height="300" fill="#e9f4f0"/>
-                <circle cx="95" cy="70" r="32" fill="#f0b354" opacity="0.75"/>
-                <path d="M0 175 Q140 130 270 168 T500 155 L500 300 L0 300 Z" fill="#356850" opacity="0.25"/>
-                <path d="M0 198 C130 178 240 225 365 190 C425 174 468 184 500 192 L500 300 L0 300 Z" fill="#2a91ad"/>
-                <path d="M0 232 C160 212 290 264 500 226 L500 300 L0 300 Z" fill="#155d74"/>
-                <path d="M35 195 L55 130 L75 195 Z M65 195 L90 112 L115 195 Z M390 185 L418 118 L446 185 Z" fill="#1b3d2f"/>
-                <rect x="20" y="218" width="110" height="10" rx="3" fill="#d9822b"/>
-                <rect x="34" y="228" width="8" height="28" fill="#8b5523"/>
-                <rect x="104" y="228" width="8" height="28" fill="#8b5523"/>
-                <path d="M185 245 C220 235 305 235 335 245 C312 254 215 254 185 245 Z" fill="#fff7e8"/>
-                <path d="M195 268 Q260 258 325 268" stroke="#9ad7e6" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <p class="about-quote">
-              «Нам важно, чтобы каждый гость — и новичок, и опытный райдер — почувствовал единение с природой,
-              уверенность на маршруте и унёс с собой море тёплых эмоций».
-            </p>
-          </div>
-
-          <div class="about-floating-tag">
-            <div class="tag-icon" aria-hidden="true">🌿</div>
-            <div>
-              <strong>Сезоны 2024–2026</strong>
-              <span>Круглогодичный активный отдых</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-content">
-          <div class="eyebrow">О компании • Наша история</div>
-          <h2>От любви к рекам Киржача — к клубу ярких приключений</h2>
-
-          <p>
-            История <strong>G-Rechka</strong> началась в городе Киржач из простого желания показать, насколько
-            удивительной и живой может быть родная природа Владимирской области. Первые заезды на сапбордах
-            быстро переросли в дружное сообщество любителей активного отдыха.
-          </p>
-          <p>
-            С 2024 года мы проводим регулярные сплавы и туры по живописным местам рек <strong>Киржач</strong> и
-            <strong>Шерна</strong>, развиваем прокат сапбордов от детских до тандемов, а в зимнее время организуем
-            прогулки и туры по лесным трассам на мотособаках, мотобуксировщиках с санями и тюбингах.
-          </p>
-          <p>
-            Перед каждым выходом на маршрут наши инструкторы проводят подробный инструктаж и помогают уверенно
-            освоиться, поэтому с нами комфортно даже новичкам.
-          </p>
-
-          <div class="about-pillars">
-            <div class="pillar-item">
-              <div class="pillar-icon" aria-hidden="true">🦺</div>
-              <div>
-                <h4>Полный комплект и обучение</h4>
-                <span>Выдаём всё снаряжение и проводим инструктаж перед стартом.</span>
-              </div>
-            </div>
-            <div class="pillar-item">
-              <div class="pillar-icon" aria-hidden="true">📸</div>
-              <div>
-                <h4>Сопровождение и фото</h4>
-                <span>С вами лучшие инструкторы и красивые памятные кадры.</span>
-              </div>
-            </div>
-            <div class="pillar-item">
-              <div class="pillar-icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
-              <div>
-                <h4>Для семьи и друзей</h4>
-                <span>Сапы от детских до тандемов, тюбинги и сани с остановками.</span>
-              </div>
-            </div>
-            <div class="pillar-item">
-              <div class="pillar-icon" aria-hidden="true">🐾</div>
-              <div>
-                <h4>Питомцы приветствуются</h4>
-                <span>На прогулку и сплав можно взять с собой любимую собаку.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         РАЗДЕЛ ПРЕДВАРИТЕЛЬНОГО ПРОСМОТРА УСЛУГ (По скриншотам и группе VK)
-         Примечание: положите реальные фото в папку images/ рядом с index.html,
-         и они автоматически заменят резервные иллюстрации.
-         ==================================================================== -->
-    <section class="services section-pad" id="services">
-      <div class="container">
-        <div class="section-header">
-          <div class="eyebrow">Услуги и цены</div>
-          <h2>Активный отдых на воде и снегу</h2>
-          <p>
-            Все актуальные услуги клуба G-Rechka с ценами из группы ВКонтакте. Выбирайте сезон и нажимайте
-            «Написать», чтобы забронировать дату или обсудить индивидуальную прогулку.
-          </p>
-        </div>
-
-        <div class="services-filters" role="group" aria-label="Фильтр услуг по сезону">
-          <button class="filter-btn active" data-service-filter="all">Все услуги (7)</button>
-          <button class="filter-btn" data-service-filter="water">Лето и вода • SUP (4)</button>
-          <button class="filter-btn" data-service-filter="winter">Зима и снег (3)</button>
-        </div>
-
-        <div class="services-response-note">
-          <span>💬 Быстро отвечает • В среднем — за 15 минут</span>
-        </div>
-
-        <div class="services-grid">
-          <!-- 1. Тур на мотособаках -->
-          <article class="service-card" data-season="winter">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="180" fill="#d9e7ec"/>
-                <path d="M0 95 Q85 70 175 90 T320 82 L320 180 L0 180 Z" fill="#eef6f9"/>
-                <path d="M0 120 Q120 105 320 125 L320 180 L0 180 Z" fill="#ffffff"/>
-                <path d="M22 92 L38 48 L54 92 Z M48 92 L66 36 L84 92 Z M245 88 L263 42 L281 88 Z M274 88 L294 52 L314 88 Z" fill="#2b5544"/>
-                <rect x="65" y="106" width="52" height="24" rx="6" fill="#1b3d2f"/>
-                <rect x="70" y="128" width="44" height="10" rx="5" fill="#d9822b"/>
-                <path d="M117 128 L138 128" stroke="#1b3d2f" stroke-width="3"/>
-                <path d="M138 118 H192 L198 134 H136 Z" fill="#155d74"/>
-                <path d="M202 118 H252 L258 134 H200 Z" fill="#155d74"/>
-                <circle cx="96" cy="94" r="9" fill="#1b3d2f"/>
-                <circle cx="164" cy="108" r="8" fill="#d9822b"/>
-                <circle cx="226" cy="108" r="8" fill="#d9822b"/>
-              </svg>
-              <img class="service-photo" src="images/motosobaki.jpg" alt="Тур на мотособаках в клубе G-Rechka" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--winter">Зима • Тур</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 2 500 ₽</div>
-              <h3>Тур на мотособаках</h3>
-              <div class="service-desc">
-                <ul>
-                  <li>Для отдыха с семьёй или друзьями</li>
-                  <li>Различные лесные трассы</li>
-                  <li>Мероприятия с остановками, поездка на конюшню и яркие впечатления</li>
-                  <li>Можно обсудить индивидуальную прогулку с учётом ваших пожеланий</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="Тур на мотособаках (от 2 500 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге Тур на мотособаках" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 2. Прокат тюбинга -->
-          <article class="service-card" data-season="winter">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="snowSky" x1="160" y1="0" x2="160" y2="180" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#c3e0eb"/>
-                    <stop offset="1" stop-color="#f7fbfe"/>
-                  </linearGradient>
-                </defs>
-                <rect width="320" height="180" fill="url(#snowSky)"/>
-                <path d="M0 78 L320 132 L320 180 L0 180 Z" fill="#ffffff"/>
-                <path d="M0 98 L320 150" stroke="#cde3ec" stroke-width="3" stroke-dasharray="10 8"/>
-                <circle cx="48" cy="36" r="4" fill="#ffffff" opacity="0.8"/>
-                <circle cx="115" cy="24" r="3" fill="#ffffff" opacity="0.8"/>
-                <circle cx="268" cy="40" r="4.5" fill="#ffffff" opacity="0.8"/>
-                <ellipse cx="165" cy="126" rx="54" ry="18" fill="#d94f30"/>
-                <ellipse cx="165" cy="120" rx="50" ry="14" fill="#1b3d2f"/>
-                <ellipse cx="165" cy="120" rx="22" ry="7" fill="#f0b354"/>
-                <circle cx="165" cy="96" r="14" fill="#e5963e"/>
-                <circle cx="159" cy="93" r="2.2" fill="#1b3d2f"/>
-                <circle cx="171" cy="93" r="2.2" fill="#1b3d2f"/>
-              </svg>
-              <img class="service-photo" src="images/tyubing.jpg" alt="Прокат тюбинга в клубе G-Rechka" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--winter">Зима • Прокат</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 500 ₽</div>
-              <h3>Прокат тюбинга</h3>
-              <div class="service-desc">
-                <p>У нас можно взять в прокат тюбинги!</p>
-                <ul>
-                  <li>Яркие и прочные «ватрушки» для зимних горок</li>
-                  <li>Отлично подойдёт для семейных выходных и прогулок с друзьями</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="Прокат тюбинга (от 500 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге Прокат тюбинга" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 3. Прогулка на мотобуксировщиках с санями и тюбингом -->
-          <article class="service-card" data-season="winter">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="180" fill="#dde8ec"/>
-                <path d="M0 95 Q110 80 220 96 T320 88 L320 180 L0 180 Z" fill="#f4f8fa"/>
-                <path d="M18 92 L30 56 L42 92 M46 92 L60 48 L74 92 M255 90 L270 50 L285 90" stroke="#356850" stroke-width="5" stroke-linecap="round"/>
-                <rect x="48" y="110" width="66" height="28" rx="8" fill="#c94436"/>
-                <rect x="52" y="132" width="60" height="12" rx="6" fill="#1d2c24"/>
-                <path d="M114 134 L132 134" stroke="#1d2c24" stroke-width="3"/>
-                <rect x="150" y="106" width="76" height="30" rx="8" fill="#1b3d2f"/>
-                <rect x="154" y="130" width="68" height="13" rx="6" fill="#1d2c24"/>
-                <path d="M226 132 L242 132" stroke="#1d2c24" stroke-width="3"/>
-                <path d="M242 120 H292 L296 138 H240 Z" fill="#155d74"/>
-              </svg>
-              <img class="service-photo" src="images/motobuksirovshik.jpg" alt="Прогулка на мотобуксировщиках с санями и тюбингом" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--winter">Зима • Прогулка</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 1 500 ₽</div>
-              <h3>Прогулка на мотобуксировщиках с санями и тюбингом</h3>
-              <div class="service-desc">
-                <p>Прогулка по лесу, прокат техники с санями и тюбингом.</p>
-                <ul>
-                  <li>Катание по заснеженным лесным маршрутам</li>
-                  <li>Комфортные сани-волокуши и тюбинги для компании</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="Прогулка на мотобуксировщиках с санями и тюбингом (от 1 500 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге Прогулка на мотобуксировщиках" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 4. SUP-индивидуальное занятие -->
-          <article class="service-card" data-season="water">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="180" fill="#cce8e4"/>
-                <path d="M0 90 L16 55 L32 90 L48 50 L64 90 L82 62 L100 90 L320 90 Z" fill="#2f624b"/>
-                <path d="M220 90 L240 52 L260 90 L282 48 L304 90 L320 90 Z" fill="#1b3d2f"/>
-                <rect y="90" width="320" height="90" fill="#2a91ad"/>
-                <path d="M18 118 Q85 112 150 118 T302 118" stroke="#9ad7e6" stroke-width="2" opacity="0.6"/>
-                <path d="M72 134 C112 124 226 124 252 134 C228 144 106 144 72 134 Z" fill="#d9822b" stroke="#fff3de" stroke-width="2"/>
-                <path d="M152 94 L168 112 L150 128" stroke="#1b3d2f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="150" cy="80" r="8" fill="#1b3d2f"/>
-                <path d="M178 96 L112 146" stroke="#f0b354" stroke-width="3.5" stroke-linecap="round"/>
-              </svg>
-              <img class="service-photo" src="images/sup-individual.jpg" alt="SUP-индивидуальное занятие в Киржаче" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--water">Лето • Обучение</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 1 500 ₽</div>
-              <h3>SUP-индивидуальное занятие</h3>
-              <div class="service-desc">
-                <p>Персональный выход на воду с инструктором.</p>
-                <ul>
-                  <li>Инструктаж по технике безопасности и управлению сапбордом</li>
-                  <li>Полный комплект инвентаря, подходит для новичков</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="SUP-индивидуальное занятие (от 1 500 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге SUP-индивидуальное занятие" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 5. SUP-тур -->
-          <article class="service-card" data-season="water">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="180" fill="#b7e2f2"/>
-                <path d="M0 0 H110 Q95 75 75 110 L0 110 Z" fill="#2f624b"/>
-                <path d="M320 0 H210 Q225 75 245 110 L320 110 Z" fill="#356850"/>
-                <path d="M60 180 L115 95 H205 L260 180 Z" fill="#1c7a96"/>
-                <path d="M0 95 L60 180 H0 Z" fill="#3d7a55"/>
-                <path d="M320 95 L260 180 H320 Z" fill="#2b5f42"/>
-                <ellipse cx="145" cy="126" rx="18" ry="4" fill="#f0b354"/>
-                <rect x="143" y="106" width="4" height="18" rx="2" fill="#1b3d2f"/>
-                <ellipse cx="176" cy="134" rx="20" ry="4.5" fill="#d9822b"/>
-                <rect x="174" y="112" width="4.5" height="20" rx="2" fill="#1b3d2f"/>
-                <ellipse cx="122" cy="144" rx="22" ry="5" fill="#ffffff"/>
-                <rect x="120" y="120" width="5" height="22" rx="2.5" fill="#155d74"/>
-                <ellipse cx="198" cy="152" rx="24" ry="5.5" fill="#f0b354"/>
-                <rect x="196" y="126" width="5.5" height="24" rx="2.5" fill="#1b3d2f"/>
-              </svg>
-              <img class="service-photo" src="images/sup-tour.jpg" alt="SUP-тур по рекам Киржач и Шерна" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--water">Лето • Тур</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 10 000 ₽</div>
-              <h3>SUP-тур</h3>
-              <div class="service-desc">
-                <p>Организованный водный тур для компании по живописным местам рек Киржач и Шерна.</p>
-                <ul>
-                  <li>Полный комплект инвентаря, инструктаж и сопровождение</li>
-                  <li>Красивые фото на маршруте</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="SUP-тур (от 10 000 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге SUP-тур" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 6. SUP-сплав -->
-          <article class="service-card" data-season="water">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="180" fill="#c7e8f0"/>
-                <path d="M0 100 Q55 30 125 90 L125 180 L0 180 Z" fill="#356850"/>
-                <path d="M320 100 Q265 30 195 90 L195 180 L320 180 Z" fill="#2f624b"/>
-                <path d="M115 90 H205 L285 180 H35 Z" fill="#217f9c"/>
-                <path d="M136 142 C148 134 172 134 184 142 C175 152 145 152 136 142 Z" fill="#63d1c9"/>
-                <rect x="155" y="96" width="10" height="32" rx="5" fill="#1b3d2f"/>
-                <circle cx="160" cy="86" r="6" fill="#1b3d2f"/>
-                <path d="M172 98 L178 152" stroke="#f0b354" stroke-width="2.5" stroke-linecap="round"/>
-              </svg>
-              <img class="service-photo" src="images/sup-splav.jpg" alt="SUP-сплав по реке Киржач" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--water">Лето • Сплав</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">от 3 000 ₽</div>
-              <h3>SUP-сплав</h3>
-              <div class="service-desc">
-                <p>Городские сплавы ежедневно и сплавы выходного дня по рекам Киржач и Шерна.</p>
-                <ul>
-                  <li>Инструктаж перед стартом, инвентарь и фото</li>
-                  <li>Можно взять с собой собаку</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="SUP-сплав (от 3 000 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге SUP-сплав" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 7. SUP-прокат -->
-          <article class="service-card" data-season="water">
-            <div class="service-cover">
-              <svg class="cover-art" viewBox="0 0 320 180" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="blueLagoon" x1="160" y1="0" x2="160" y2="180" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#87d3e8"/>
-                    <stop offset="0.3" stop-color="#2a91ad"/>
-                    <stop offset="1" stop-color="#11536b"/>
-                  </linearGradient>
-                </defs>
-                <rect width="320" height="180" fill="url(#blueLagoon)"/>
-                <path d="M0 32 Q70 20 140 32 T320 26 L320 0 L0 0 Z" fill="#356850" opacity="0.65"/>
-                <path d="M40 60 Q110 52 180 60" stroke="#ffffff" stroke-width="1.5" opacity="0.35"/>
-                <path d="M190 132 Q250 124 305 132" stroke="#ffffff" stroke-width="1.5" opacity="0.35"/>
-                <g transform="rotate(-32 160 105)">
-                  <rect x="85" y="84" width="150" height="42" rx="21" fill="#e6532c" stroke="#fff3de" stroke-width="2.5"/>
-                  <rect x="115" y="91" width="90" height="28" rx="14" fill="#2a91ad"/>
-                  <rect x="145" y="96" width="32" height="18" rx="6" fill="#f0b354"/>
-                </g>
-              </svg>
-              <img class="service-photo" src="images/sup-prokat.jpg" alt="SUP-прокат досок в Киржаче" onerror="this.remove()" />
-              <span class="service-season-badge service-season-badge--water">Лето • Прокат</span>
-            </div>
-            <div class="service-body">
-              <div class="service-price">1 500–3 000 ₽</div>
-              <h3>SUP-прокат</h3>
-              <div class="service-desc">
-                <p>Аренда сапбордов по предварительной записи для самостоятельных прогулок.</p>
-                <ul>
-                  <li>Доски от детских моделей до двухместных тандемов</li>
-                  <li>Полный комплект снаряжения</li>
-                </ul>
-              </div>
-              <div class="service-actions">
-                <button type="button" class="service-btn" data-select-service="SUP-прокат (1 500–3 000 ₽)">
-                  Написать
-                </button>
-                <a href="tel:+79961910150" class="service-call-btn" aria-label="Позвонить по услуге SUP-прокат" title="Позвонить">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="included-banner">
-          <div class="included-text">
-            <h3>Во всех сплавах G-Rechka уже предусмотрено</h3>
-            <p>Просто выбирайте удобную дату — обо всём остальном на берегу и на воде мы позаботимся.</p>
-          </div>
-          <div class="included-chips">
-            <span class="included-chip">Полный комплект инвентаря</span>
-            <span class="included-chip">Обучение и инструктаж</span>
-            <span class="included-chip">Лучшие инструкторы</span>
-            <span class="included-chip">Красивые фото</span>
-            <span class="included-chip">Можно с собакой</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         РАЗДЕЛ "ПРОШЕДШИЕ МЕРОПРИЯТИЯ"
-         ==================================================================== -->
-    <section class="events section-pad" id="events">
-      <div class="container">
-        <div class="section-header">
-          <div class="eyebrow">Летопись клуба</div>
-          <h2>Прошедшие мероприятия</h2>
-          <p>
-            Вспоминаем самые яркие выходы на воду, аншлаги выходного дня и закатные встречи из жизни нашего
-            сообщества ВКонтакте.
-          </p>
-        </div>
-
-        <div class="events-filters" role="group" aria-label="Фильтр мероприятий по годам">
-          <button class="filter-btn active" data-filter="all">Все сезоны</button>
-          <button class="filter-btn" data-filter="2026">Сезон 2026</button>
-          <button class="filter-btn" data-filter="2025">Сезон 2025</button>
-          <button class="filter-btn" data-filter="2024">Сезон 2024</button>
-        </div>
-
-        <div class="events-grid">
-          <!-- Событие 1 -->
-          <article class="event-card" data-year="2026">
-            <div class="event-cover event-cover--summer">
-              <span class="event-date">18 июля 2026</span>
-              <span class="event-location">р. Киржач</span>
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <circle cx="12" cy="12" r="5"/>
-                <path d="M12 1v3m0 16v3M4.22 4.22l2.12 2.12m11.32 11.32 2.12 2.12M1 12h3m16 0h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="event-body">
-              <div>
-                <h3>Сплав выходного дня «Макушка лета»</h3>
-                <p>
-                  Большой летний сбор любителей активного отдыха в середине июля. Участники прошли живописный
-                  маршрут на сапах в сопровождении инструкторов и зарядились солнечным настроением.
-                </p>
-              </div>
-              <div class="event-meta">
-                <span class="event-pill">Групповой сплав</span>
-                <span class="event-pill event-pill--blue">830+ просмотров в VK</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Событие 2 -->
-          <article class="event-card" data-year="2026">
-            <div class="event-cover event-cover--sunset">
-              <span class="event-date">30 июля — авг. 2026</span>
-              <span class="event-location">г. Киржач</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-              </svg>
-            </div>
-            <div class="event-body">
-              <div>
-                <h3>Август как три лета: вечерние и закатные прогулки</h3>
-                <p>
-                  Серия атмосферных выходов на воду под девизом «провести последний месяц лета, как три».
-                  Тёплые вечера на реке, красивое ночное августовское небо и памятные фотосессии на сапах.
-                </p>
-              </div>
-              <div class="event-meta">
-                <span class="event-pill">Закатный маршрут</span>
-                <span class="event-pill event-pill--blue">Фото с воды</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Событие 3 -->
-          <article class="event-card" data-year="2025">
-            <div class="event-cover event-cover--river">
-              <span class="event-date">Июль 2025</span>
-              <span class="event-location">Киржач и Шерна</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M2 12c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5-1"/>
-                <path d="M2 17c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5-1"/>
-              </svg>
-            </div>
-            <div class="event-body">
-              <div>
-                <h3>Большой июльский марафон сплавов по Киржачу и Шерне</h3>
-                <p>
-                  Насыщенный летний сезон с регулярными субботними и воскресными группами по 8–13 досок
-                  и аншлагом 20 июля, когда все сапы были полностью разобраны задолго до старта.
-                </p>
-              </div>
-              <div class="event-meta">
-                <span class="event-pill">Аншлаг 20.07</span>
-                <span class="event-pill event-pill--blue">2 живописные реки</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Событие 4 -->
-          <article class="event-card" data-year="2024">
-            <div class="event-cover event-cover--live">
-              <span class="event-date">Июнь — авг. 2024</span>
-              <span class="event-location">VK Видео Live</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
-            </div>
-            <div class="event-body">
-              <div>
-                <h3>Открытие сезона и прямые трансляции Live: G-Rechka</h3>
-                <p>
-                  Летние речные стримы прямо с воды 9 июня и 3 августа 2024 года — живые эмоции участников,
-                  знакомство с маршрутами и старт большой истории сап-движения G-Rechka в Киржаче.
-                </p>
-              </div>
-              <div class="event-meta">
-                <span class="event-pill">Прямой эфир</span>
-                <span class="event-pill event-pill--blue">~900 просмотров</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         РАЗДЕЛ КОНТАКТОВ И ЗАПИСИ
-         ==================================================================== -->
-    <section class="contacts section-pad" id="contacts">
-      <div class="container">
-        <div class="section-header">
-          <div class="eyebrow">Связь и бронирование</div>
-          <h2>Контакты клуба G-Rechka</h2>
-          <p>
-            Сплавы, туры и прокат проходят по предварительной записи. Напишите нам в сообществе ВКонтакте,
-            в мессенджерах или позвоните — отвечаем в среднем за 15 минут.
-          </p>
-        </div>
-
-        <div class="contacts-grid">
-          <div class="contact-info-box">
-            <div class="contact-list">
-              <div class="contact-row">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div>
-                  <small>Локация и старт маршрутов</small>
-                  <strong>Владимирская область, г. Киржач</strong>
-                  <div style="font-size: 0.88rem; color: var(--text-muted);">
-                    Район ул. Марины Расковой • Реки Киржач и Шерна
-                  </div>
-                </div>
-              </div>
-
-              <div class="contact-row">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-                <div>
-                  <small>Телефон для бронирования</small>
-                  <a href="tel:+79961910150">+7 (996) 191-01-50</a>
-                  <div style="font-size: 0.88rem; color: var(--text-muted);">
-                    Связь по звонку, в VK, WhatsApp и Max • Быстро отвечает (~15 мин)
-                  </div>
-                </div>
-              </div>
-
-              <div class="contact-row">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </div>
-                <div>
-                  <small>График работы</small>
-                  <strong>Ежедневно, 08:00 – 22:00</strong>
-                  <div style="font-size: 0.88rem; color: var(--text-muted);">
-                    Заезды и прокат по предварительной записи
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.86rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">
-                Быстрая связь с клубом:
-              </div>
-              <div class="social-strip">
-                <a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer" class="social-btn">
-                  ВКонтакте (vk.ru/grechka33)
-                </a>
-                <a href="https://wa.me/79961910150" target="_blank" rel="noopener noreferrer" class="social-btn">
-                  WhatsApp
-                </a>
-                <a href="tel:+79961910150" class="social-btn">
-                  Позвонить
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="booking-box">
-            <h3>Быстрая заявка на отдых</h3>
-            <p>
-              Выберите нужную услугу и укажите контакты — заявка сразу подготовится к отправке в WhatsApp или ВКонтакте.
-            </p>
-
-            <form class="form-grid" id="bookingForm">
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label for="guestName">Ваше имя</label>
-                  <input class="form-control" type="text" id="guestName" placeholder="Например, Анна" required />
-                </div>
-                <div class="form-group">
-                  <label for="guestPhone">Телефон</label>
-                  <input class="form-control" type="tel" id="guestPhone" placeholder="+7 (999) 000-00-00" required />
-                </div>
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label for="serviceSelect">Выберите услугу</label>
-                  <select class="form-control" id="serviceSelect">
-                    <option value="SUP-сплав (от 3 000 ₽)">SUP-сплав (от 3 000 ₽)</option>
-                    <option value="SUP-прокат (1 500–3 000 ₽)">SUP-прокат (1 500–3 000 ₽)</option>
-                    <option value="SUP-индивидуальное занятие (от 1 500 ₽)">SUP-индивидуальное занятие (от 1 500 ₽)</option>
-                    <option value="SUP-тур (от 10 000 ₽)">SUP-тур (от 10 000 ₽)</option>
-                    <option value="Тур на мотособаках (от 2 500 ₽)">Тур на мотособаках (от 2 500 ₽)</option>
-                    <option value="Прогулка на мотобуксировщиках с санями и тюбингом (от 1 500 ₽)">Прогулка на мотобуксировщиках с санями и тюбингом (от 1 500 ₽)</option>
-                    <option value="Прокат тюбинга (от 500 ₽)">Прокат тюбинга (от 500 ₽)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="boardCount">Количество мест / единиц</label>
-                  <input class="form-control" type="number" id="boardCount" min="1" max="15" value="2" />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="guestNote">Пожелания (дата, маршрут, остановки, с детьми или с собакой)</label>
-                <input class="form-control" type="text" id="guestNote" placeholder="Например: суббота утром, прогулка по лесу с остановками" />
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 6px;">
-                Подготовить бронь
-              </button>
-
-              <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======================================================================
-       ФУТЕР
-       ====================================================================== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <strong>G-Rechka | активный отдых | г. Киржач</strong>
-          <span>SUP-сплавы, туры и прокат летом, мотособаки, мотобуксировщики и тюбинг зимой.</span>
-        </div>
-
-        <div class="footer-nav">
-          <a href="#about">О клубе</a>
-          <a href="#services">Услуги</a>
-          <a href="#events">Мероприятия</a>
-          <a href="#contacts">Контакты</a>
-          <a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer">VK: grechka33</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© Клуб активного отдыха «G-Rechka», г. Киржач</span>
-        <span>Ежедневно 08:00–22:00 • Тел.: +7 (996) 191-01-50</span>
-      </div>
-    </div>
-  </footer>
-
-  <a href="#hero" class="back-to-top" id="backToTop" aria-label="Вернуться наверх">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
-  </a>
-
-  <script>
-    // 1. Мобильное меню
-    const burgerBtn = document.getElementById('burgerBtn');
-    const navLinks = document.getElementById('navLinks');
-
-    burgerBtn.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      burgerBtn.classList.toggle('open', isOpen);
-      burgerBtn.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        burgerBtn.classList.remove('open');
-        burgerBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // 2. Эффект прокрутки для шапки, активных ссылок и кнопки "Наверх"
-    const navbar = document.getElementById('navbar');
-    const backToTop = document.getElementById('backToTop');
-    const sections = document.querySelectorAll('main section[id]');
-    const navItems = document.querySelectorAll('.nav-links a');
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      navbar.classList.toggle('scrolled', y > 24);
-      backToTop.classList.toggle('show', y > 420);
-
-      let currentId = '';
-      sections.forEach(sec => {
-        if (y >= sec.offsetTop - 130) {
-          currentId = sec.getAttribute('id');
-        }
-      });
-
-      navItems.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === `#${currentId}`);
-      });
-    }, { passive: true });
-
-    // 3. Фильтрация услуг по сезону + быстрый выбор услуги по кнопке "Написать"
-    const serviceFilterButtons = document.querySelectorAll('[data-service-filter]');
-    const serviceCards = document.querySelectorAll('.service-card');
-    const serviceSelect = document.getElementById('serviceSelect');
-    const contactsSection = document.getElementById('contacts');
-
-    serviceFilterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        serviceFilterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.serviceFilter;
-        serviceCards.forEach(card => {
-          const match = filter === 'all' || card.dataset.season === filter;
-          card.classList.toggle('hidden', !match);
-        });
-      });
-    });
-
-    document.querySelectorAll('[data-select-service]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const chosenService = btn.dataset.selectService;
-        if (serviceSelect) {
-          serviceSelect.value = chosenService;
-        }
-        contactsSection.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => document.getElementById('guestName').focus({ preventScroll: true }), 550);
-      });
-    });
-
-    // 4. Фильтрация прошедших мероприятий по сезонам
-    const eventFilterButtons = document.querySelectorAll('[data-filter]');
-    const eventCards = document.querySelectorAll('.event-card');
-
-    eventFilterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        eventFilterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-        eventCards.forEach(card => {
-          const match = filter === 'all' || card.dataset.year === filter;
-          card.classList.toggle('hidden', !match);
-        });
-      });
-    });
-
-    // 5. Обработка быстрой заявки на странице
-    const bookingForm = document.getElementById('bookingForm');
-    const formFeedback = document.getElementById('formFeedback');
-
-    bookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('guestName').value.trim();
-      const phone = document.getElementById('guestPhone').value.trim();
-      const service = document.getElementById('serviceSelect').value;
-      const count = document.getElementById('boardCount').value;
-      const note = document.getElementById('guestNote').value.trim();
-
-      const text = `Здравствуйте, G-Rechka! Меня зовут ${name} (${phone}). Интересует услуга: ${service}, количество мест/единиц: ${count}.${note ? ' Комментарий: ' + note : ''}`;
-      const waUrl = `https://wa.me/79961910150?text=${encodeURIComponent(text)}`;
-
-      formFeedback.innerHTML = `
-        <strong>Заявка готова!</strong> Отправьте её нам любым удобным способом:
-        <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 10px;">
-          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: #f0b354; font-weight: 700;">Отправить в WhatsApp</a>
-          <a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: #ffffff; font-weight: 700;">Написать в VK</a>
-          <a href="tel:+79961910150" style="text-decoration: underline; color: #ffffff; font-weight: 700;">Позвонить +7 (996) 191-01-50</a>
-        </div>
-      `;
-      formFeedback.classList.add('visible');
-    });
-  </script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="i-vest" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+<symbol id="i-fam" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.4 5-6"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+<symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+</defs></svg>
+
+<header class="navbar" id="navbar"><div class="container nav-in">
+<a href="#hero" class="logo" aria-label="G-Rechka на главную"><span class="logo-m"><svg class="ico" viewBox="0 0 24 24" style="width:24px;height:24px"><path d="M3 16c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1.5 4-1M3 20c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1.5 4-1M14.5 3.5l-5 10"/></svg></span><span>G-Rechka<span class="logo-s">активный отдых • г. Киржач</span></span></a>
+<nav class="nav-links" id="navLinks" aria-label="Основная навигация"><a href="#about">О клубе</a><a href="#services">Услуги</a><a href="#events">Мероприятия</a><a href="#contacts">Контакты</a></nav>
+<div class="nav-act"><a href="tel:+79961910150" class="nav-ph" aria-label="Позвонить"><svg class="ico"><use href="#i-phone"/></svg><span>+7 (996) 191-01-50</span></a>
+<button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button></div>
+</div></header>
+
+<main>
+<section class="hero" id="hero">
+<svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(250,246,238,.16)" d="M0,48C240,108 480,0 720,52S1200,16 1440,64L1440,120L0,120Z"/><path fill="#faf6ee" d="M0,74C320,18 640,115 960,64C1180,30 1330,68 1440,84L1440,120L0,120Z"/></svg>
+<div class="container hero-grid">
+<div>
+<div class="badge"><i></i>Владимирская область • Реки Киржач и Шерна</div>
+<h1>Лови течение лета&nbsp;—<br /><em>отдыхай на воде с&nbsp;<span style="white-space:nowrap">G-Rechka!</span></em></h1>
+<p class="lead">SUP-прогулки, сплавы, туры и прокат в городе Киржач, а зимой — выезды на мотособаках, мотобуксировщиках и тюбингах. Живописные маршруты, полный комплект снаряжения и поддержка инструкторов.</p>
+<div class="cta"><a href="#services" class="btn btn-p">Смотреть услуги и цены <svg class="ico"><use href="#i-arr"/></svg></a><a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer" class="btn btn-o">Сообщество ВКонтакте</a></div>
+<div class="stats"><div class="stat"><strong>08:00 – 22:00</strong><span>Работаем ежедневно по записи</span></div><div class="stat"><strong>Круглый год</strong><span>SUP летом и мотособаки зимой</span></div><div class="stat"><strong>Dog-friendly</strong><span>Можно взять с собой собаку</span></div></div>
+</div>
+<div class="hcard">
+<div class="photo"><img src="images/hero.jpg" alt="Гость клуба G-Rechka на сапборде по реке" onerror="this.remove()" /></div>
+<div class="hinfo"><div><h3>Живописные маршруты лета</h3><p>Городские сплавы ежедневно и выезды выходного дня</p></div><div class="rate" title="Оценка гостей на Яндекс Картах">★ 4.7</div></div>
+</div>
+</div>
+</section>
+
+<section class="about pad" id="about"><div class="container about-grid">
+<div><div class="aframe"><div class="photo"><img src="images/about.jpg" alt="Гости клуба на берегу реки Киржач рядом с сапбордами" loading="lazy" onerror="this.remove()" /></div>
+<blockquote>«Нам важно, чтобы каждый гость — и новичок, и опытный райдер — почувствовал единение с природой, уверенность на маршруте и унёс с собой море тёплых эмоций».</blockquote>
+<div class="atag"><div class="ib"><svg class="ico"><use href="#i-leaf"/></svg></div><div><strong>Сезоны 2024–2026</strong><span>Круглогодичный активный отдых</span></div></div></div></div>
+<div class="about-c">
+<div class="eyebrow">О компании • Наша история</div>
+<h2>От любви к рекам Киржача — к клубу ярких приключений</h2>
+<p>История <strong>G-Rechka</strong> началась в городе Киржач из простого желания показать, насколько удивительной и живой может быть родная природа Владимирской области. Первые заезды на сапбордах быстро переросли в дружное сообщество любителей активного отдыха.</p>
+<p>С 2024 года мы проводим регулярные сплавы и туры по живописным местам рек <strong>Киржач</strong> и <strong>Шерна</strong>, развиваем прокат сапбордов от детских до тандемов, а в зимнее время организуем прогулки и туры по лесным трассам на мотособаках, мотобуксировщиках с санями и тюбингах.</p>
+<p>Перед каждым выходом на маршрут наши инструкторы проводят подробный инструктаж и помогают уверенно освоиться, поэтому с нами комфортно даже новичкам.</p>
+<div class="pillars">
+<div class="pillar"><div class="ib"><svg class="ico"><use href="#i-vest"/></svg></div><div><h4>Полный комплект и обучение</h4><span>Выдаём всё снаряжение и проводим инструктаж перед стартом.</span></div></div>
+<div class="pillar"><div class="ib"><svg class="ico"><use href="#i-cam"/></svg></div><div><h4>Сопровождение и фото</h4><span>С вами лучшие инструкторы и красивые памятные кадры.</span></div></div>
+<div class="pillar"><div class="ib"><svg class="ico"><use href="#i-fam"/></svg></div><div><h4>Для семьи и друзей</h4><span>Сапы от детских до тандемов, тюбинги и сани с остановками.</span></div></div>
+<div class="pillar"><div class="ib"><svg class="ico"><use href="#i-paw"/></svg></div><div><h4>Питомцы приветствуются</h4><span>На прогулку и сплав можно взять с собой любимую собаку.</span></div></div>
+</div></div></div></section>
+
+<section class="services pad" id="services"><div class="container">
+<div class="sh"><div class="eyebrow">Услуги и цены</div><h2>Активный отдых на воде и снегу</h2><p>Все актуальные услуги клуба G-Rechka с ценами из группы ВКонтакте. Выбирайте сезон и нажимайте «Написать», чтобы забронировать дату или обсудить индивидуальную прогулку.</p></div>
+<div class="filters" role="group" aria-label="Фильтр услуг по сезону" id="sfilters"></div>
+<div class="note"><span>Быстро отвечает • В среднем — за 15 минут</span></div>
+<div class="sgrid" id="sgrid"></div>
+<div class="included"><div><h3>Во всех сплавах G-Rechka уже предусмотрено</h3><p>Просто выбирайте удобную дату — обо всём остальном на берегу и на воде мы позаботимся.</p></div>
+<div class="chips"><span class="chip">Полный комплект инвентаря</span><span class="chip">Обучение и инструктаж</span><span class="chip">Лучшие инструкторы</span><span class="chip">Красивые фото</span><span class="chip">Можно с собакой</span></div></div>
+</div></section>
+
+<section class="events pad" id="events"><div class="container">
+<div class="sh"><div class="eyebrow">Летопись клуба</div><h2>Прошедшие мероприятия</h2><p>Вспоминаем самые яркие выходы на воду, аншлаги выходного дня и закатные встречи из жизни нашего сообщества ВКонтакте.</p></div>
+<div class="filters" role="group" aria-label="Фильтр мероприятий по годам">
+<button class="fbtn active" data-y="all">Все сезоны</button><button class="fbtn" data-y="2026">Сезон 2026</button><button class="fbtn" data-y="2025">Сезон 2025</button><button class="fbtn" data-y="2024">Сезон 2024</button></div>
+<div class="egrid" style="margin-top:34px">
+<article class="ecard" data-year="2026"><div class="photo ecover"><img src="images/sup-tour.jpg" alt="Сплав выходного дня «Макушка лета»" loading="lazy" onerror="this.remove()" /><span class="edate">18 июля 2026</span><span class="eloc">р. Киржач</span></div>
+<div class="ebody"><div><h3>Сплав выходного дня «Макушка лета»</h3><p>Большой летний сбор любителей активного отдыха в середине июля. Участники прошли живописный маршрут на сапах в сопровождении инструкторов и зарядились солнечным настроением.</p></div><div class="pills"><span class="pill">Групповой сплав</span><span class="pill b">830+ просмотров в VK</span></div></div></article>
+<article class="ecard" data-year="2026"><div class="photo ecover"><img src="images/board.jpg" alt="Вечерние и закатные прогулки на сапах" loading="lazy" onerror="this.remove()" /><span class="edate">30 июля — авг. 2026</span><span class="eloc">г. Киржач</span></div>
+<div class="ebody"><div><h3>Август как три лета: вечерние и закатные прогулки</h3><p>Серия атмосферных выходов на воду под девизом «провести последний месяц лета, как три». Тёплые вечера на реке, красивое ночное августовское небо и памятные фотосессии на сапах.</p></div><div class="pills"><span class="pill">Закатный маршрут</span><span class="pill b">Фото с воды</span></div></div></article>
+<article class="ecard" data-year="2025"><div class="photo ecover"><img src="images/about.jpg" alt="Июльский марафон сплавов по Киржачу и Шерне" loading="lazy" onerror="this.remove()" /><span class="edate">Июль 2025</span><span class="eloc">Киржач и Шерна</span></div>
+<div class="ebody"><div><h3>Большой июльский марафон сплавов по Киржачу и Шерне</h3><p>Насыщенный летний сезон с регулярными субботними и воскресными группами по 8–13 досок и аншлагом 20 июля, когда все сапы были полностью разобраны задолго до старта.</p></div><div class="pills"><span class="pill">Аншлаг 20.07</span><span class="pill b">2 живописные реки</span></div></div></article>
+<article class="ecard" data-year="2024"><div class="photo ecover"><img src="images/sup-prokat.jpg" alt="Открытие сезона 2024 на реке" loading="lazy" onerror="this.remove()" /><span class="edate">Июнь — авг. 2024</span><span class="eloc">VK Видео Live</span></div>
+<div class="ebody"><div><h3>Открытие сезона и прямые трансляции Live: G-Rechka</h3><p>Летние речные стримы прямо с воды 9 июня и 3 августа 2024 года — живые эмоции участников, знакомство с маршрутами и старт большой истории сап-движения G-Rechka в Киржаче.</p></div><div class="pills"><span class="pill">Прямой эфир</span><span class="pill b">~900 просмотров</span></div></div></article>
+</div></div></section>
+
+<section class="contacts pad" id="contacts"><div class="container">
+<div class="sh"><div class="eyebrow">Связь и бронирование</div><h2>Контакты клуба G-Rechka</h2><p>Сплавы, туры и прокат проходят по предварительной записи. Напишите нам в сообществе ВКонтакте, в мессенджерах или позвоните — отвечаем в среднем за 15 минут.</p></div>
+<div class="cgrid">
+<div class="cbox"><div>
+<div class="crow"><div class="ib"><svg class="ico"><use href="#i-pin"/></svg></div><div><small>Локация и старт маршрутов</small><strong>Владимирская область, г. Киржач</strong><div>Район ул. Марины Расковой • Реки Киржач и Шерна</div><a href="https://yandex.ru/maps/?text=Киржач%20улица%20Марины%20Расковой" target="_blank" rel="noopener noreferrer" style="font-size:.88rem;text-decoration:underline">Открыть на карте</a></div></div>
+<div class="crow"><div class="ib"><svg class="ico"><use href="#i-phone"/></svg></div><div><small>Телефон для бронирования</small><a href="tel:+79961910150">+7 (996) 191-01-50</a><div>Связь по звонку, в VK, WhatsApp и Max • Быстро отвечает (~15 мин)</div></div></div>
+<div class="crow"><div class="ib"><svg class="ico"><use href="#i-clock"/></svg></div><div><small>График работы</small><strong>Ежедневно, 08:00 – 22:00</strong><div>Заезды и прокат по предварительной записи</div></div></div>
+</div>
+<div><div style="font-size:.86rem;font-weight:700;color:var(--mu);margin-bottom:8px">Быстрая связь с клубом:</div>
+<div class="social"><a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer">ВКонтакте (vk.ru/grechka33)</a><a href="https://wa.me/79961910150" target="_blank" rel="noopener noreferrer">WhatsApp</a><a href="tel:+79961910150">Позвонить</a></div></div></div>
+<div class="bbox"><h3>Быстрая заявка на отдых</h3><p>Выберите нужную услугу и укажите контакты — заявка подготовится к отправке в WhatsApp.</p>
+<form class="fgrid" id="bform">
+<div class="row2"><div class="fg"><label for="gn">Ваше имя</label><input class="fc" id="gn" placeholder="Например, Анна" required /></div><div class="fg"><label for="gp">Телефон</label><input class="fc" type="tel" id="gp" placeholder="+7 (999) 000-00-00" required pattern="[0-9+()\s\-]{10,}" /></div></div>
+<div class="row2"><div class="fg"><label for="ss">Выберите услугу</label><select class="fc" id="ss"></select></div><div class="fg"><label for="gc">Количество мест / единиц</label><input class="fc" type="number" id="gc" min="1" max="15" value="2" /></div></div>
+<div class="fg"><label for="gt">Пожелания (дата, маршрут, остановки, с детьми или с собакой)</label><input class="fc" id="gt" placeholder="Например: суббота утром, прогулка по лесу с остановками" /></div>
+<label class="consent"><input type="checkbox" required />Согласен(на) на обработку персональных данных для связи по заявке</label>
+<button type="submit" class="btn btn-p" style="width:100%">Подготовить бронь</button>
+<div class="fb" id="fb" role="status" aria-live="polite"></div>
+</form></div>
+</div></div></section>
+</main>
+
+<footer class="footer"><div class="container">
+<div class="fin"><div><strong>G-Rechka | активный отдых | г. Киржач</strong><span>SUP-сплавы, туры и прокат летом, мотособаки, мотобуксировщики и тюбинг зимой.</span></div>
+<div class="fnav"><a href="#about">О клубе</a><a href="#services">Услуги</a><a href="#events">Мероприятия</a><a href="#contacts">Контакты</a><a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer">VK: grechka33</a></div></div>
+<div class="fbot"><span>© Клуб активного отдыха «G-Rechka», г. Киржач</span><span>Ежедневно 08:00–22:00 • Тел.: +7 (996) 191-01-50</span></div>
+</div></footer>
+
+<a href="#hero" class="totop" id="totop" aria-label="Наверх"><svg class="ico"><use href="#i-up"/></svg></a>
+<div class="mcta"><a href="tel:+79961910150">Позвонить</a><a href="https://wa.me/79961910150" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+
+<script>
+const PHONE='79961910150';
+const S=[
+{s:'winter',tag:'Зима • Тур',t:'Тур на мотособаках',p:'от 2 500 ₽',img:'motosobaki',alt:'Тур на мотособаках: волокуша с санями на зимнем поле',d:'',li:['Для отдыха с семьёй или друзьями','Различные лесные трассы','Мероприятия с остановками, поездка на конюшню и яркие впечатления','Можно обсудить индивидуальную прогулку с учётом ваших пожеланий']},
+{s:'winter',tag:'Зима • Прокат',t:'Прокат тюбинга',p:'от 500 ₽',img:'tyubing',alt:'Прокат тюбинга в клубе G-Rechka',d:'У нас можно взять в прокат тюбинги!',li:['Яркие и прочные «ватрушки» для зимних горок','Отлично подойдёт для семейных выходных и прогулок с друзьями']},
+{s:'winter',tag:'Зима • Прогулка',t:'Прогулка на мотобуксировщиках с санями и тюбингом',p:'от 1 500 ₽',img:'motobuksirovshik',alt:'Мотобуксировщики на снегу',d:'Прогулка по лесу, прокат техники с санями и тюбингом.',li:['Катание по заснеженным лесным маршрутам','Комфортные сани-волокуши и тюбинги для компании']},
+{s:'water',tag:'Лето • Обучение',t:'SUP-индивидуальное занятие',p:'от 1 500 ₽',img:'sup-individual',alt:'SUP-индивидуальное занятие в Киржаче',d:'Персональный выход на воду с инструктором.',li:['Инструктаж по технике безопасности и управлению сапбордом','Полный комплект инвентаря, подходит для новичков']},
+{s:'water',tag:'Лето • Тур',t:'SUP-тур',p:'от 10 000 ₽',img:'sup-tour',alt:'Группа на сапбордах на реке — SUP-тур',d:'Организованный водный тур для компании по живописным местам рек Киржач и Шерна.',li:['Полный комплект инвентаря, инструктаж и сопровождение','Красивые фото на маршруте']},
+{s:'water',tag:'Лето • Сплав',t:'SUP-сплав',p:'от 3 000 ₽',img:'sup-splav',alt:'SUP-сплав по реке Киржач',d:'Городские сплавы ежедневно и сплавы выходного дня по рекам Киржач и Шерна.',li:['Инструктаж перед стартом, инвентарь и фото','Можно взять с собой собаку']},
+{s:'water',tag:'Лето • Прокат',t:'SUP-прокат',p:'1 500–3 000 ₽',img:'sup-prokat',alt:'Сапборды на берегу реки — SUP-прокат',d:'Аренда сапбордов по предварительной записи для самостоятельных прогулок.',li:['Доски от детских моделей до двухместных тандемов','Полный комплект снаряжения']}
+];
+const m=new Date().getMonth(),winterNow=m>=10||m<=2,first=winterNow?'winter':'water';
+S.sort((a,b)=>(b.s===first)-(a.s===first));
+const wa=t=>`https://wa.me/${PHONE}?text=${encodeURIComponent(t)}`;
+const ph='<svg class="ico"><use href="#i-phone"/></svg>';
+document.getElementById('sgrid').innerHTML=S.map(x=>`<article class="scard" data-season="${x.s}"><div class="photo scover"><img src="images/${x.img}.jpg" alt="${x.alt}" loading="lazy" onerror="this.remove()"><span class="stag ${x.s}">${x.tag}</span></div><div class="sbody"><div class="price">${x.p}</div><h3>${x.t}</h3><div class="sdesc">${x.d?`<p>${x.d}</p>`:''}<ul>${x.li.map(l=>`<li>${l}</li>`).join('')}</ul></div><div class="sact"><a class="sbtn" href="${wa('Здравствуйте! Хочу забронировать: '+x.t+' ('+x.p+'). Дата: ')}" target="_blank" rel="noopener noreferrer"><svg class="ico"><use href="#i-chat"/></svg>Написать</a><a class="scall" href="tel:+${PHONE}" aria-label="Позвонить: ${x.t}" title="Позвонить">${ph}</a></div></div></article>`).join('');
+const nW=S.filter(x=>x.s==='water').length,nN=S.length-nW;
+const fl=[['all',`Все услуги (${S.length})`],['water',`Лето и вода • SUP (${nW})`],['winter',`Зима и снег (${nN})`]];
+document.getElementById('sfilters').innerHTML=fl.map(([k,l])=>`<button class="fbtn${k==='all'?' active':''}" data-sf="${k}">${l}</button>`).join('');
+document.getElementById('ss').innerHTML=S.map(x=>`<option>${x.t} (${x.p})</option>`).join('');
+document.querySelectorAll('[data-sf]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-sf]').forEach(o=>o.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.scard').forEach(c=>c.classList.toggle('hidden',b.dataset.sf!=='all'&&c.dataset.season!==b.dataset.sf))});
+document.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-y]').forEach(o=>o.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.ecard').forEach(c=>c.classList.toggle('hidden',b.dataset.y!=='all'&&c.dataset.year!==b.dataset.y))});
+const burger=document.getElementById('burger'),nl=document.getElementById('navLinks');
+burger.onclick=()=>{const o=nl.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o)};
+nl.querySelectorAll('a').forEach(a=>a.onclick=()=>{nl.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+const nb=document.getElementById('navbar'),tt=document.getElementById('totop'),secs=document.querySelectorAll('main section[id]'),items=document.querySelectorAll('.nav-links a');
+addEventListener('scroll',()=>{const y=scrollY;nb.classList.toggle('scrolled',y>24);tt.classList.toggle('show',y>420);let c='';secs.forEach(s=>{if(y>=s.offsetTop-130)c=s.id});items.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))},{passive:true});
+document.getElementById('bform').onsubmit=e=>{e.preventDefault();
+const v=id=>document.getElementById(id).value.trim(),n=v('gn'),p=v('gp'),s=v('ss'),c=v('gc'),t=v('gt');
+if(p.replace(/\D/g,'').length<10){alert('Проверьте номер телефона');return}
+const u=wa(`Здравствуйте, G-Rechka! Меня зовут ${n} (${p}). Интересует услуга: ${s}, количество мест/единиц: ${c}.${t?' Комментарий: '+t:''}`);
+const f=document.getElementById('fb');
+f.innerHTML=`<strong>Заявка готова!</strong> Отправьте её любым удобным способом:<br><a href="${u}" target="_blank" rel="noopener noreferrer">Отправить в WhatsApp</a><a href="https://vk.ru/grechka33" target="_blank" rel="noopener noreferrer">Написать в VK</a><a href="tel:+${PHONE}">Позвонить</a>`;
+f.classList.add('on');window.open(u,'_blank','noopener')};
+</script>
 </body>
 </html>
